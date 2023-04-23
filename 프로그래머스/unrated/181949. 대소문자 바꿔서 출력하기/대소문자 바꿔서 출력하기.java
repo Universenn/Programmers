@@ -1,17 +1,18 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String a = sc.next();
         char[] aArr = a.toCharArray();
+        String b = "";
         for(int i = 0; i < a.length(); i++){
-            if(aArr[i] > 96){
-                aArr[i] -= 32;
+            if(Character.isUpperCase(aArr[i])){
+                b += Character.toLowerCase(aArr[i]);
             }else{
-                aArr[i] += 32;
+                b += Character.toUpperCase(aArr[i]);
             }
          }
-        System.out.println(aArr);
+        System.out.println(b);
     }
 }
