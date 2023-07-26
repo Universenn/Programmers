@@ -4,10 +4,7 @@ class Solution {
         int result = 1;
         for(int i = 2; i <= 10; i++){
             result *= i;
-            if(result == n){
-                answer = i;
-                break;
-            }else if(result > n){
+            if(result > n){
                 break;
             }
             answer = i;
