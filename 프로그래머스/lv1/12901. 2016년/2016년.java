@@ -10,7 +10,6 @@ class Solution {
         }
         
         alldate += b-1;
-        
         answer = day[alldate%7];
         
         return answer;
