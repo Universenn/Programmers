@@ -4,6 +4,7 @@ class Solution {
         for (Long i = 1L; i <= count; i++) {
             result += price*i;
         }
+        
         return result - money > 0 ? result - money : 0;
     }
 }
