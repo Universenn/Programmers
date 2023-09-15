@@ -1,21 +1,24 @@
 import java.util.*;
 class Solution {
     public String solution(String[] participant, String[] completion) {
-             String answer = "";
+        String answer = "";
+        HashMap<String, Integer> hashMap = new HashMap<>();
 
-        Arrays.sort(participant);
-        Arrays.sort(completion);
+        // putIfAbsent 존재하는 경우, value 값 반환
+        for (String str : participant) {
+            hashMap.put(str, hashMap.getOrDefault(str, 0) + 1); //( 없으면 디폴트 값이 0) 값  + 1 ;
+        }
+        for (String str : completion) {
+            hashMap.put(str, hashMap.get(str) - 1); //( 없으면 디폴트 값이 0) 값  + 1 ;
+        }
 
-        for(int i=0; i<participant.length; i++) {
-            if(i == completion.length) {
-                answer = participant[i];
-                break;
-            }
-            if(!participant[i].equals(completion[i])) {
-                answer = participant[i];
-                break;
+
+        for (String s : hashMap.keySet()) {
+            if (hashMap.get(s) != 0) {
+                answer = s;
             }
         }
+
         return answer;
     }
 }
