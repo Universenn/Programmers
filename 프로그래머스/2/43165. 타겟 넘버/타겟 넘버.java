@@ -1,17 +1,23 @@
 class Solution {
-    private static int answer = 0;
+    int[] numbers;
+    int target;
+    int answer;
+
     public int solution(int[] numbers, int target) {
-        bfs(0, 0, numbers, target);        
+        answer = 0;
+        this.numbers = numbers;
+        this.target = target;
+        bfs(0,0);
         return answer;
     }
-    static void bfs(int n, int sum, int[] numbers, int target){
-        if(n == numbers.length){
-            if(target == sum){
-                answer++;
-            }
+    void bfs(int index, int sum){
+        // 1. 탈출로직
+        if(index == numbers.length){
+            if(sum == target) answer++;
             return;
         }
-        bfs(n + 1, sum + numbers[n], numbers, target);
-        bfs(n + 1, sum - numbers[n], numbers, target);
+        // 2. 수행로직
+        bfs(index + 1, sum + numbers[index]);
+        bfs(index + 1, sum - numbers[index]);
     }
 }
