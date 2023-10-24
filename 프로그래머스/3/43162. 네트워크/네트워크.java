@@ -1,26 +1,25 @@
 class Solution {
     public int solution(int n, int[][] computers) {
-       int answer = 0;
-    boolean[] check = new boolean[n]; // n 갯수만큼 boolean 배열을 만들고 모든 요소를 false로 초기화
-
-    for (int i = 0; i < n; i++) {
-      if (!check[i]) {
-        dfs(computers, i, check);
-        answer++;
-      }
+        int answer = 0;
+        boolean[] visited = new boolean[n];
+        for(int i = 0; i < n; i++){
+            if(!visited[i]){
+                bfs(computers, i, visited);
+                answer++;
+            }
+        }
+        
+        return answer;
     }
-
-    return answer;
-  }
-
-  boolean[] dfs(int[][] computers, int i, boolean[] check) {
-    check[i] = true;
-
-    for (int j = 0; j < computers.length; j++) {
-      if (i != j && computers[i][j] == 1 && check[j] == false) {
-        check = dfs(computers, j, check);
-      }
+    boolean[] bfs(int[][] computers, int i, boolean[] visited){
+        visited[i] = true;
+        
+        for(int j = 0; j < computers.length; j++){
+            if(i != j && !visited[j] && computers[i][j] == 1){
+                visited = bfs(computers, j, visited);
+            }
+        }
+        return visited;
+        
     }
-    return check;
-  }
 }
