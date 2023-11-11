@@ -23,7 +23,6 @@ class Solution {
             }
         }
         
-        // System.out.println(list);
         return list.toArray(new String[0]);
     }
 }
