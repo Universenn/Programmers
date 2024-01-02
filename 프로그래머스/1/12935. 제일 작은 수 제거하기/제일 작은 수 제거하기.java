@@ -1,19 +1,22 @@
 import java.util.*;
-
 class Solution {
     public int[] solution(int[] arr) {
-        int[] answer ={};
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i : arr) {
-            list.add(i);
+        int[] answer = {};
+        int[] arrCopy = new int[arr.length];
+        
+        for(int i = 0; i < arr.length; i++){
+            arrCopy[i] = arr[i];
         }
-        Arrays.sort(arr);
-        for (int i = 0; i < arr.length; i++) {
-            if (list.get(i) == arr[0]) {
-                list.remove(i);
-                break;
+        
+        Arrays.sort(arrCopy);
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for(int a : arr){
+            if(arrCopy[0] != a){
+                list.add(a);
             }
         }
-        return arr.length == 1 ? new int[]{-1} : list.stream().mapToInt(Integer::intValue).toArray();
+        return arr.length == 1 ? new int[] {-1} : list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
