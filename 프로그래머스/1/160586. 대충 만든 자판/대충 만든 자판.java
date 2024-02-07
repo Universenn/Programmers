@@ -2,39 +2,31 @@ import java.util.*;
 class Solution {
     public int[] solution(String[] keymap, String[] targets) {
         int[] answer = new int[targets.length];
-        HashMap<Character,Integer> map = new HashMap<>();
-
-        for (String key : keymap) {
-            for (int j = 0; j < key.length(); j++) {
-
-                char ch = key.charAt(j);
-
-                if (map.containsKey(ch)){
-                    if(map.get(ch)>j){
-                        map.replace(ch,j+1);
-                    }
+        
+        int[] alphabet = new int[26];
+        
+        for(String k : keymap){
+            for(int i = 0; i < k.length(); i++){
+                if(alphabet[k.charAt(i)-65] == 0){
+                    alphabet[k.charAt(i)-65] = i + 1;
                 }else{
-                    map.put(ch,j+1);
+                    int temp = alphabet[k.charAt(i)-65];
+                    alphabet[k.charAt(i)-65] = Math.min(temp,i+1);
                 }
             }
         }
-
-        for(int i=0; i< targets.length;i++){
-            int sum = 0;
-            for(int j=0; j<targets[i].length();j++){
-
-                char ch = targets[i].charAt(j);
-
-                if(map.containsKey(ch)){
-                    sum+=map.get(ch);
-                }else{
-                    sum = -1;
+        
+        for(int i = 0; i < targets.length; i++){
+            for(int j = 0; j < targets[i].length(); j++){
+                if(alphabet[targets[i].charAt(j)-65] == 0){
+                    answer[i] = -1;
                     break;
+                }else{
+                    answer[i] += alphabet[targets[i].charAt(j)-65];
                 }
             }
-            answer[i] = sum;
         }
-
+        
         return answer;
     }
 }
