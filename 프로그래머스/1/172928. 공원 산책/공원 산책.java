@@ -2,10 +2,8 @@ class Solution {
   public int[] solution(String[] park, String[] routes) {
         int h = park.length;
         int w = park[0].length();
-
         int startH = 0;
         int startW = 0;
-
         for(int i=0; i<h; i++){
             if(park[i].contains("S"))
             {
@@ -13,7 +11,6 @@ class Solution {
                 startW = park[i].indexOf("S"); 
             }
         }
-
         for(String route : routes){
             String d = route.split(" ")[0];
             int move = Integer.parseInt(route.split(" ")[1]);
