@@ -1,46 +1,85 @@
+import java.util.*;
 class Solution {
-  public int[] solution(String[] park, String[] routes) {
-        int h = park.length;
-        int w = park[0].length();
-        int startH = 0;
-        int startW = 0;
-        for(int i=0; i<h; i++){
-            if(park[i].contains("S"))
-            {
-                startH = i;
-                startW = park[i].indexOf("S"); 
+    public int[] solution(String[] park, String[] routes) {
+        int[] answer = new int[2];
+
+        // 2차원 배열 [열][행]
+        // 2차원 배열 [길이][높이]
+        int[][] parkMap = new int[park.length][park[0].length()];
+
+        int x = 0;
+        int xLength = park[0].length();
+        int y = 0;
+        int yLength = park.length;
+        System.out.println("xLength = " + xLength);
+
+        for(int i = 0; i < parkMap.length; i++){
+            for(int j = 0; j < parkMap[i].length; j++){
+                char c = park[i].charAt(j);
+                if(c == 'S') {
+                    parkMap[i][j] = 1;
+                    x = j;
+                    y = i;
+                }
+                else if(c == 'O') parkMap[i][j] = 0;
+                else if(c == 'X') parkMap[i][j] = 2;
             }
         }
-        for(String route : routes){
-            String d = route.split(" ")[0];
-            int move = Integer.parseInt(route.split(" ")[1]);
+//        System.out.println("x = "+ x);
+//        System.out.println("y = "+ y);
 
-            int moveH = startH;
-            int moveW = startW;
+        for(int[] pM : parkMap){
+//            System.out.println(Arrays.toString(pM));
+        }
 
-            for(int i=0; i<move; i++)
-            {
-                switch(d) {
-                    case "S" : moveH++; break; 
-                    case "N" : moveH--; break;
-                    case "E" : moveW++; break;
-                    case "W" : moveW--; break;
+        for(String r : routes){
+            String[] rSplit = r.split(" ");
+            int xTemp = x;
+            int yTemp = y;
+            int times = Integer.parseInt(rSplit[1]);
+            for(int i = 0; i < times; i++){
+                if(rSplit[0].equals("E")){
+                    x++;
+                    if(x == xLength || parkMap[y][x] == 2){
+                        x = xTemp;
+                        break;
+                    }
                 }
-            if(moveH>=0&& moveH<h&&moveW>=0&&moveW<w){
-                if(park[moveH].substring(moveW,moveW+1).equals("X")){
-                    break;
+                else if(rSplit[0].equals("W")){
+                    x--;
+                    if(x < 0 || parkMap[y][x] == 2){
+                        x = xTemp;
+                        break;
+                    }
                 }
-                if(i==move-1){
-                    startH=moveH;
-                    startW=moveW;
+                else if(rSplit[0].equals("N")){
+                    y--;
+                    if(y < 0 || parkMap[y][x] == 2){
+                        y = yTemp;
+                        break;
+                    }
                 }
-                }    
+
+                else if(rSplit[0].equals("S")){
+                    y++;
+                    if(y == yLength || parkMap[y][x] == 2){
+                        y = yTemp;
+                        break;
+                    }
+                }
+
+//                System.out.println("x = "+ x);
+//                System.out.println("y = "+ y);
             }
 
         }
+        answer[0] = y;
+        answer[1] = x;
+        System.out.println("x = "+ x);
+        System.out.println("y = "+ y);
 
-
-        int[] answer = {startH,startW};
         return answer;
     }
 }
+// EE SS W
+// 
