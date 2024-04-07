@@ -12,7 +12,9 @@ class Solution
             }else{
                 stack.push(c);
             }
+            
         }
         return stack.size() == 0 ? 1 : 0;
+        
     }
 }
